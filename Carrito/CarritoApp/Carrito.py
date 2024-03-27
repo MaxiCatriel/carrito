@@ -2,7 +2,7 @@ class Carrito:
     def __init__(self, request):
         self.request = request
         self.session = request.session
-        carrito = self.session["carrito"]
+        carrito = self.session.get("carrito")
         if not carrito:
             self.session["carrito"] = {}
             self.carrito = self.session["carrito"]
@@ -21,7 +21,7 @@ class Carrito:
             }
         else:
             self.carrito[id]["cantidad"] += 1
-            self.carrito[id]['acumulado'] += producto.precio
+            self.carrito[id]['acumulado'] += float(producto.precio)
         self.guardar_carrito()
     
     def guardar_carrito(self):
@@ -38,10 +38,16 @@ class Carrito:
         id = str(producto.id)
         if id in self.carrito.keys():
             self.carrito[id]["cantidad"] -= 1
-            self.carrito[id]['acumulado'] -= producto.precio
+            self.carrito[id]['acumulado'] -= float(producto.precio)
             if self.carrito[id]['cantidad'] <= 0: self.eliminar(producto)
             self.guardar_carrito()
         
     def limpiar(self):
         self.session["carrito"] = {}
         self.session.modified = True
+        
+    def obtener_total(self):
+        total = 0
+        for item_id, item_info in self.carrito.items():
+            total += float(item_info['acumulado'])
+        return total

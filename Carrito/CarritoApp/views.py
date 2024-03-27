@@ -8,7 +8,13 @@ from CarritoApp.Carrito import Carrito
 
 def tienda(request):
     productos = Producto.objects.all()
-    return render (request, 'tienda.html', {'productos': productos})
+    
+       # Calcular el total del carrito
+    carrito = Carrito(request)
+    total_carrito = carrito.obtener_total()
+
+    return render(request, 'tienda.html', {'productos': productos, 'total_carrito': total_carrito})
+    
 
 def agregar_producto(request, producto_id):
     carrito = Carrito(request)
@@ -20,15 +26,15 @@ def eliminar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.eliminar(producto)
-    return redirect('Tienda')
+    return redirect("Tienda")
 
 def restar_producto(request, producto_id):
     carrito = Carrito(request)
     producto = Producto.objects.get(id=producto_id)
     carrito.restar(producto)
-    return redirect('Tienda')
+    return redirect("Tienda")
 
 def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()
-    return redirect('Tienda')
+    return redirect("Tienda")
