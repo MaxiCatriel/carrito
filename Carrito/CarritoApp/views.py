@@ -8,7 +8,7 @@ from CarritoApp.Carrito import Carrito
 
 def tienda(request):
     productos = Producto.objects.all()
-    
+    print(productos)  
        # Calcular el total del carrito
     carrito = Carrito(request)
     total_carrito = carrito.obtener_total()

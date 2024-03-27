@@ -16,6 +16,7 @@ class Carrito:
             self.carrito[id]={
                 "producto_id": producto.id,
                 "nombre": producto.nombre,
+                "precio": float(producto.precio), 
                 "acumulado": float(producto.precio),  # Convertir a flotante para operaciones matemáticas
                 "cantidad":1,
             }

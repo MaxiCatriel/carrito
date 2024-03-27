@@ -13,7 +13,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col" colspan="3" class="text-center">Carrito</th>
+                    <th scope="col" colspan="5" class="text-center">Carrito</th>
                 </tr>
                 <tr>
                     <th scope="col">Producto</th>
@@ -26,8 +26,8 @@
                     {% for key, value in request.session.carrito.items %}
                         <tr>
                             <td>{{ value.nombre }}</td>
-                            <td>{{ value.precio }}</td>
-                            <td>{{ value.acumulado }}
+                            <td>{{ value.precio}}</td>
+                            <td>{{ value.cantidad }}
                                 <a href="{% url 'Add' value.producto_id %}" class="badge btn btn-dark">+</a>
                                 <a href="{% url 'Sub' value.producto_id %}" class="badge btn btn-dark">-</a>
                             </td>
